@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "Vim Vixen",
-  "description": "Vim Vixen",
+  "name": "Vim Vixen Colemak Patched",
+  "description": "Vim Vixen with Colemak-DHm",
   "version": "1.2.4",
   "icons": {
     "48": "resources/icon_48x48.png",

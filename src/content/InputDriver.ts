@@ -25,7 +25,8 @@ const modifiedKeyName = (name: string): string => {
 
 // visible for testing
 export const keyFromKeyboardEvent = (e: KeyboardEvent): Key => {
-  const key = modifiedKeyName(e.key);
+  let key = modifiedKeyName(e.key);
+  key = colemakKeyMap[key] ?? key;
   let shift = e.shiftKey;
   if (key.length === 1 && key.toUpperCase() === key.toLowerCase()) {
     // make shift false for symbols to enable key bindings by symbold keys.
@@ -35,13 +36,19 @@ export const keyFromKeyboardEvent = (e: KeyboardEvent): Key => {
   }
 
   return new Key({
-    key: modifiedKeyName(e.key),
+    key: key,
     shift: shift,
     ctrl: e.ctrlKey,
     alt: e.altKey,
     meta: e.metaKey,
   });
 };
+
+const colemakKeyMap: { [key: string]: string } = {
+  q: 'q', w: 'w', e: 'f', r: 'p', t: 'b', y: 'j', u: 'l', i: 'u', o: 'y', p: ';',
+  a: 'a', s: 'r', d: 's', f: 't', g: 'g', h: 'm', j: 'n', k: 'e', l: 'i', ';': 'o',
+  z: 'x', x: 'c', c: 'd', v: 'v', b: 'z', n: 'k', m: 'h',
+}
 
 export default class InputDriver {
   private pressed: { [key: string]: string } = {};
